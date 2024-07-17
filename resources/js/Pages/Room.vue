@@ -2,6 +2,9 @@
 import { Head } from '@inertiajs/vue3';
 import ChatTextarea from '@/Components/Chat/ChatTextarea.vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { useMessagesStore } from '@/Store/useMessagesStore';
+
+const messagesStore = useMessagesStore();
 
 defineProps({
     room: Object
