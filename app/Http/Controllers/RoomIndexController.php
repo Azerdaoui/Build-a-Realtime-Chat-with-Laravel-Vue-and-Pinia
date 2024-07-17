@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
-use Illuminate\Http\Request;
 use App\Http\Resources\MessageResource;
+use App\Models\Room;
 
 class RoomIndexController extends Controller
 {
