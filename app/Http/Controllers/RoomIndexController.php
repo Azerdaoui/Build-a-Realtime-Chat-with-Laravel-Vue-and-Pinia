@@ -10,7 +10,7 @@ class RoomIndexController extends Controller
     public function __invoke(Room $room)
     {
         return MessageResource::collection(
-            $room->messages()->with('users')->latest()->paginate(100)
+            $room->messages()->with('user')->latest()->paginate(100)
         );
     }
 }
