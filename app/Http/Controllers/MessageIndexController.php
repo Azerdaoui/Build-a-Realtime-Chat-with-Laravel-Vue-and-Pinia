@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\MessageResource;
 use App\Models\Room;
 
-class RoomIndexController extends Controller
+class MessageIndexController extends Controller
 {
     public function __invoke(Room $room)
     {

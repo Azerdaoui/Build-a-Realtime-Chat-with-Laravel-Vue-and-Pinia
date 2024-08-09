@@ -13,6 +13,10 @@ const messagesStore = useMessagesStore();
 
 messagesStore.fetchState(props.room.slug)
 
+const storeMessage = (payload) => {
+    messagesStore.storeMessage(props.room.slug, payload)
+}
+
 </script>
 
 <template>
@@ -38,11 +42,11 @@ messagesStore.fetchState(props.room.slug)
                         <ChatMessages :room="room" />
 
                         <ChatTextarea 
-                            v-on:valid="console.log($event)"
+                            v-on:valid="storeMessage({body: $event})"
                             class="w-full" 
                             placeholder="Aa..." />
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </AuthenticatedLayout>

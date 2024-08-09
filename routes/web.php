@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoomIndexController;
-use App\Http\Controllers\RoomShowController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomShowController;
+use App\Http\Controllers\MessageIndexController;
+use App\Http\Controllers\MessageStoreController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -23,8 +24,11 @@ Route::get('/dashboard', function () {
 Route::get('/rooms/{room:slug}', RoomShowController::class)
     ->middleware(['auth', 'verified'])->name('room.show');
 
-Route::get('/rooms/{room:slug}/messages', RoomIndexController::class)
+Route::get('/rooms/{room:slug}/messages', MessageIndexController::class)
     ->middleware(['auth', 'verified'])->name('room.show.messages');
+
+Route::post('/rooms/{room:slug}/messages', MessageStoreController::class)
+    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
