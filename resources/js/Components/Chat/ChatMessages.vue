@@ -3,6 +3,10 @@
     import { useIntersectionObserver }  from '@vueuse/core'
     import { ref } from "vue"
 
+    const props = defineProps({
+        room: Object
+    })
+
     const messageStore = useMessagesStore()
 
     const target = ref(null)
@@ -10,9 +14,11 @@
     const { stop } = useIntersectionObserver(
         target,
         ([{isIntersecting}], observerElement) => {
-            if( isIntersecting ) {
-                console.log(isIntersecting)
+            if (!isIntersecting ) {
+                return;
             }
+
+            messageStore.fetchPreviousState(props.room.slug)
         }
     )
 </script>

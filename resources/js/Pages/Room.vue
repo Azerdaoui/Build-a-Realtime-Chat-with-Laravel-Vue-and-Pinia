@@ -35,7 +35,7 @@ messagesStore.fetchState(props.room.slug)
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-9">
                     <div class="p-6 text-gray-900">
-                        <ChatMessages />
+                        <ChatMessages :room="room" />
 
                         <ChatTextarea 
                             v-on:valid="console.log($event)"
