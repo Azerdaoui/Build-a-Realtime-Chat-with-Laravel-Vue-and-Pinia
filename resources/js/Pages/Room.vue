@@ -2,21 +2,27 @@
 import { Head } from "@inertiajs/vue3";
 import ChatTextarea from "@/Components/Chat/ChatTextarea.vue";
 import ChatMessages from "@/Components/Chat/ChatMessages.vue";
+import ChatUsers from "@/Components/Chat/ChatUsers.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
+import { useUsersStore } from "@/Store/useUsersStore";
 
 const props = defineProps({
   room: Object,
 });
 
 const messagesStore = useMessagesStore();
+const usersStore = useUsersStore();
 
 const channel = Echo.join(`room.${props.room.id}`);
 
 channel
     .listen('MessageCreated', (e) => {
         messagesStore.pushMessage(e)
-    });
+    })
+    .here(users => {
+        usersStore.setUsers(users)
+    })
 
 messagesStore.fetchState(props.room.slug);  
 
@@ -40,7 +46,9 @@ const storeMessage = (payload) => {
         <div
           class="bg-white overflow-hidden shadow-sm sm:rounded-lg col-span-3"
         >
-          <div class="p-6 text-gray-900">Users online</div>
+          <div class="p-6 text-gray-900">
+                <ChatUsers />
+          </div>
         </div>
 
         <div
