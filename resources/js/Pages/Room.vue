@@ -6,6 +6,7 @@ import ChatUsers from "@/Components/Chat/ChatUsers.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useMessagesStore } from "@/Store/useMessagesStore";
 import { useUsersStore } from "@/Store/useUsersStore";
+import { onUnmounted } from "vue";
 
 const props = defineProps({
   room: Object,
@@ -14,15 +15,17 @@ const props = defineProps({
 const messagesStore = useMessagesStore();
 const usersStore = useUsersStore();
 
+onUnmounted(() => Echo.leave(`room.${props.room.id}`))
+ 
 const channel = Echo.join(`room.${props.room.id}`);
 
 channel
     .listen('MessageCreated', (e) => {
         messagesStore.pushMessage(e)
     })
-    .here(users => {
-        usersStore.setUsers(users)
-    })
+    .here(users => usersStore.setUsers(users))
+    .joining(user => usersStore.addUser(user))
+    .leaving(user => usersStore.removeUser(user))
 
 messagesStore.fetchState(props.room.slug);  
 
