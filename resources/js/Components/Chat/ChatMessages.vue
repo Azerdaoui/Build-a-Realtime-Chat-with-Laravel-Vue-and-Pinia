@@ -33,7 +33,7 @@
             <div>
                 <div class="flex items-baseline space-x-2">
                     <div class="font-bold">{{ message.user.name }}</div>
-                    <div class="font-xs text-gray-600">{{ message.user.created_at }}</div>
+                    <div class="font-xs text-gray-600">{{ message.created_at }}</div>
                 </div>
 
                 <p>

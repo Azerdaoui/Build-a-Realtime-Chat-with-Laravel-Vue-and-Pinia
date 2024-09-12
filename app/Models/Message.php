@@ -11,6 +11,17 @@ class Message extends Model
 
     protected $guarded = false;
 
+    public function createdAtHuman()
+    {
+        $day = match (true) {
+            $this->created_at->isToday() => 'Today',
+            $this->created_at->isYesterday() => 'Yesterday',
+            default => $this->created_at->toDateString()
+        };
+
+        return $day . ' ' . $this->created_at->toTimeString('minute');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
