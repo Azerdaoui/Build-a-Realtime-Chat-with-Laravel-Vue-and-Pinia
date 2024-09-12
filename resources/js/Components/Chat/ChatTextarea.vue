@@ -13,10 +13,12 @@
             return;
         }
 
-        if (model.value.length) {
+        if (model.value.length) {            
             emit('valid', model.value)
 
             model.value = ''
+
+            handleFinishedTyping()
         }
     }
 
@@ -45,8 +47,8 @@
         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
         v-on:keydown.shift="shift = true"
         v-on:keyup="shift = false"
-        v-on:keydown.enter.prevent="handleEnter"
         v-on:keydown="handleTyping"
+        v-on:keydown.enter.prevent="handleEnter"
     >
     </textarea>
 </template>

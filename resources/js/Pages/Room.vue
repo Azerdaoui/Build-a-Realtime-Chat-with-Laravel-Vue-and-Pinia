@@ -26,6 +26,7 @@ channel
     .here(users => usersStore.setUsers(users))
     .joining(user => usersStore.addUser(user))
     .leaving(user => usersStore.removeUser(user))
+    .listenForWhisper('typing', e => usersStore.setTyping(e))
 
 messagesStore.fetchState(props.room.slug);  
 
@@ -64,7 +65,7 @@ const storeMessage = (payload) => {
                 v-on:valid="storeMessage({ body: $event })"
                 class="w-full"
                 placeholder="Aa..."
-                v-on:typing="console.log($event)"
+                v-on:typing="channel.whisper('typing', { id: $page.props.auth.user.id, typing: $event })"
             />
           </div>
         </div>
