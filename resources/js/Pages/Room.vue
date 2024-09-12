@@ -61,9 +61,10 @@ const storeMessage = (payload) => {
             <ChatMessages :room="room" />
 
             <ChatTextarea
-              v-on:valid="storeMessage({ body: $event })"
-              class="w-full"
-              placeholder="Aa..."
+                v-on:valid="storeMessage({ body: $event })"
+                class="w-full"
+                placeholder="Aa..."
+                v-on:typing="console.log($event)"
             />
           </div>
         </div>
